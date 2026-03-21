@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Classroom Auth</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="auth.css"/>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4 bg-[#f0ede6]"
+  style="background-image: linear-gradient(rgba(180,200,220,0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(180,200,220,0.25) 1px, transparent 1px); background-size: 36px 36px;">
+
+  <div class="w-full max-w-sm bg-[#fafaf7] border-[2.5px] border-[#2d2d2d] rounded-sm p-8" style="box-shadow: 4px 4px 0px #2d2d2d;">
+
+    <h2 class="text-center text-[1.6rem] font-bold text-[#1a1a1a] mb-5 tracking-wide" style="font-family:'Caveat',cursive;">
+      Real-Time Classroom
+    </h2>
+
+    <!-- Tabs -->
+    <div class="flex border-b-2 border-[#2d2d2d] mb-6">
+      <button id="tab-login" onclick="switchTab('login')"
+        class="tab-btn flex-1 py-2 text-lg font-semibold bg-transparent border-none cursor-pointer text-[#888] transition-colors"
+        style="font-family:'Caveat',cursive;">Log In</button>
+      <button id="tab-signup" onclick="switchTab('signup')"
+        class="tab-btn flex-1 py-2 text-lg font-semibold bg-transparent border-none cursor-pointer text-[#888] transition-colors"
+        style="font-family:'Caveat',cursive;">Sign Up</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="panel-login" class="panel active">
+      <div class="mb-4">
+        <label class="block mb-1 text-base font-semibold text-[#444]" style="font-family:'Caveat',cursive;">Email</label>
+        <input type="email" placeholder="you@school.edu" class="wb-input w-full bg-transparent border-b-2 border-[#aaa] px-0.5 py-1.5 text-[#1a1a1a] text-sm outline-none" style="font-family:'Patrick Hand',cursive;"/>
+      </div>
+      <div class="mb-4">
+        <label class="flex justify-between mb-1 text-base font-semibold text-[#444]" style="font-family:'Caveat',cursive;">
+          Password
+          <a href="#" class="text-[#e05a5a] text-sm hover:underline" style="font-family:'Caveat',cursive;">Forgot?</a>
+        </label>
+        <input type="password" placeholder="••••••••" class="wb-input w-full bg-transparent border-b-2 border-[#aaa] px-0.5 py-1.5 text-[#1a1a1a] text-sm outline-none" style="font-family:'Patrick Hand',cursive;"/>
+      </div>
+      <button onclick="window.location.href='teacher-dashboard.html'" class="w-full mt-5 py-2.5 bg-[#2d2d2d] text-[#fafaf7] text-lg font-bold rounded-sm border-[2.5px] border-[#2d2d2d] cursor-pointer tracking-wide hover:-translate-y-px active:translate-y-px transition-transform" style="font-family:'Caveat',cursive; box-shadow: 3px 3px 0 #555;">
+        Continue →
+      </button>
+    </div>
+
+    <!-- SIGNUP -->
+    <div id="panel-signup" class="panel">
+      <div class="flex gap-4 mb-4">
+        <div class="flex-1">
+          <label class="block mb-1 text-base font-semibold text-[#444]" style="font-family:'Caveat',cursive;">First Name</label>
+          <input type="text" placeholder="Jane" class="wb-input w-full bg-transparent border-b-2 border-[#aaa] px-0.5 py-1.5 text-[#1a1a1a] text-sm outline-none" style="font-family:'Patrick Hand',cursive;"/>
+        </div>
+        <div class="flex-1">
+          <label class="block mb-1 text-base font-semibold text-[#444]" style="font-family:'Caveat',cursive;">Last Name</label>
+          <input type="text" placeholder="Doe" class="wb-input w-full bg-transparent border-b-2 border-[#aaa] px-0.5 py-1.5 text-[#1a1a1a] text-sm outline-none" style="font-family:'Patrick Hand',cursive;"/>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="block mb-1 text-base font-semibold text-[#444]" style="font-family:'Caveat',cursive;">Email</label>
+        <input type="email" placeholder="you@school.edu" class="wb-input w-full bg-transparent border-b-2 border-[#aaa] px-0.5 py-1.5 text-[#1a1a1a] text-sm outline-none" style="font-family:'Patrick Hand',cursive;"/>
+      </div>
+      <div class="mb-4">
+        <label class="block mb-1 text-base font-semibold text-[#444]" style="font-family:'Caveat',cursive;">Password</label>
+        <input type="password" placeholder="Min. 8 characters" class="wb-input w-full bg-transparent border-b-2 border-[#aaa] px-0.5 py-1.5 text-[#1a1a1a] text-sm outline-none" style="font-family:'Patrick Hand',cursive;"/>
+      </div>
+
+      <!-- Role Selector -->
+      <div class="mb-4">
+        <label class="block mb-2 text-base font-semibold text-[#444]" style="font-family:'Caveat',cursive;">I am a...</label>
+        <div class="flex gap-3">
+          <button id="role-student" onclick="selectRole('student')"
+            class="role-btn flex-1 py-2 border-[2px] border-[#2d2d2d] rounded-sm text-base font-semibold text-[#2d2d2d] bg-transparent cursor-pointer"
+            style="font-family:'Caveat',cursive;">🎒 Student</button>
+          <button id="role-teacher" onclick="selectRole('teacher')"
+            class="role-btn flex-1 py-2 border-[2px] border-[#2d2d2d] rounded-sm text-base font-semibold text-[#2d2d2d] bg-transparent cursor-pointer"
+            style="font-family:'Caveat',cursive;">🍎 Teacher</button>
+        </div>
+      </div>
+
+      <button id="signup-btn" onclick="handleSignup()"
+        class="w-full mt-3 py-2.5 bg-[#2d2d2d] text-[#fafaf7] text-lg font-bold rounded-sm border-[2.5px] border-[#2d2d2d] cursor-pointer tracking-wide hover:-translate-y-px active:translate-y-px transition-transform"
+        style="font-family:'Caveat',cursive; box-shadow: 3px 3px 0 #555;">
+        Create Account →
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    let selectedRole = null;
+
+    function switchTab(tab) {
+      ['login','signup'].forEach(t => {
+        document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+        document.getElementById('panel-' + t).classList.toggle('active', t === tab);
+      });
+    }
+
+    function selectRole(role) {
+      selectedRole = role;
+      ['student','teacher'].forEach(r => {
+        document.getElementById('role-' + r).classList.toggle('selected', r === role);
+      });
+    }
+
+    function handleSignup() {
+      if (!selectedRole) { alert('Please select a role!'); return; }
+      window.location.href = selectedRole === 'teacher' ? 'teacher-dashboard.html' : 'student-dashboard.html';
+    }
+  </script>
+</body>
+</html>
