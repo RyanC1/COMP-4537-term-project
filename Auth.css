@@ -1,27 +1,16 @@
-/* Tab active underline state */
-.tab-btn.active {
-  color: #1a1a1a;
-  border-bottom: 3px solid #e05a5a;
-  margin-bottom: -2px;
-}
+/* ── Panel show/hide with animation ── */
+.panel             { display: none; }
+.panel.active      { display: block; animation: fadeIn 0.2s ease; }
+@keyframes fadeIn  { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:none; } }
+
+/* ── Tab active underline ── */
+.tab-btn.active             { color: #1a1a1a; border-bottom: 3px solid #e05a5a; margin-bottom: -2px; }
 .tab-btn:hover:not(.active) { color: #444; }
 
-/* Input focus color */
-.wb-input:focus { border-bottom-color: #5b8dd9; }
-.wb-input::placeholder { color: #bbb; }
+/* ── Role selector ── */
+.role-btn          { transition: all 0.15s; }
+.role-btn.selected { background: #2d2d2d; color: #fafaf7; box-shadow: 2px 2px 0 #555; }
 
-/* Role selector */
-.role-btn { transition: all 0.15s; }
-.role-btn.selected {
-  background: #2d2d2d;
-  color: #fafaf7;
-  box-shadow: 2px 2px 0 #555;
-}
-
-/* Panel show/hide with animation */
-.panel { display: none; }
-.panel.active { display: block; animation: fadeIn 0.2s ease; }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to   { opacity: 1; transform: none; }
-}
+/* ── Underline inputs ── */
+.wb-input:focus            { border-bottom-color: #5b8dd9; }
+.wb-input::placeholder     { color: #bbb; }

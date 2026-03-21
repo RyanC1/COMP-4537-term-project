@@ -1,0 +1,31 @@
+/* ── Fonts ── */
+body               { font-family: 'Patrick Hand', cursive; }
+h1, h2, .font-caveat { font-family: 'Caveat', cursive; }
+
+/* ── Whiteboard background grid ── */
+.wb-bg {
+  background-color: #f0ede6;
+  background-image:
+    linear-gradient(rgba(180,200,220,0.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(180,200,220,0.25) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+/* ── Card shadows ── */
+.wb-card        { box-shadow: 4px 4px 0 #2d2d2d; }
+.wb-card-yellow { box-shadow: 3px 3px 0 #f0c040; }
+.wb-card-grey   { box-shadow: 3px 3px 0 #ccc; }
+
+/* ── Button shadow ── */
+.wb-btn         { box-shadow: 3px 3px 0 #555; font-family: 'Caveat', cursive; }
+.wb-btn:hover   { box-shadow: 4px 4px 0 #555; }
+.wb-btn:active  { box-shadow: 1px 1px 0 #555; }
+
+/* ── Scrollable responses list ── */
+#responses-list { max-height: 420px; overflow-y: auto; }
+
+/* ── Textarea / input placeholder and focus ── */
+textarea::placeholder,
+input::placeholder { color: #bbb; }
+textarea:focus,
+input:focus        { border-color: #5b8dd9; }

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Teacher Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="dashboard.css"/>
+  <link rel="icon" type="image/png" href="public/favicon.ico">
+</head>
+<body class="wb-bg min-h-screen px-4 py-6">
+
+  <!-- Top Bar -->
+  <div class="max-w-5xl mx-auto flex items-center justify-between mb-6">
+    <h1 class="font-caveat text-[1.8rem] font-bold text-[#1a1a1a]">🍎 Teacher Dashboard</h1>
+    <div class="flex items-center gap-4">
+      <a href="auth.html" class="font-caveat text-sm text-[#e05a5a] hover:underline">Log out</a>
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+    <!-- LEFT -->
+    <div class="lg:col-span-1 flex flex-col gap-5">
+
+      <!-- Ask Question Card -->
+      <div class="wb-card bg-[#fafaf7] border-[2.5px] border-[#2d2d2d] rounded-sm p-5">
+        <h2 class="font-caveat text-[1.3rem] font-bold text-[#1a1a1a] mb-4 border-b-2 border-dashed border-[#ccc] pb-2">✏️ Ask a Question</h2>
+        <textarea id="question-input" placeholder="Type your question here..." rows="3"
+          class="w-full bg-transparent border-2 border-dashed border-[#bbb] rounded-sm p-2 text-sm text-[#1a1a1a] outline-none resize-none"></textarea>
+        <button onclick="sendQuestion()"
+          class="wb-btn w-full mt-4 py-2 bg-[#2d2d2d] text-[#fafaf7] text-base font-bold rounded-sm border-[2px] border-[#2d2d2d] cursor-pointer hover:-translate-y-px active:translate-y-px transition-transform">
+          Send to Students →
+        </button>
+      </div>
+
+      <!-- Participation Card -->
+      <div class="wb-card bg-[#fafaf7] border-[2.5px] border-[#2d2d2d] rounded-sm p-5">
+        <h2 class="font-caveat text-[1.3rem] font-bold text-[#1a1a1a] mb-4 border-b-2 border-dashed border-[#ccc] pb-2">📊 Participation</h2>
+        <div class="font-caveat flex justify-between text-sm mb-1">
+          <span class="text-[#444]">Responded</span>
+          <span class="font-bold text-[#1a1a1a]" id="responded-count">18 / 24</span>
+        </div>
+        <div class="w-full h-4 bg-[#e8e4dc] border-[2px] border-[#2d2d2d] rounded-sm overflow-hidden">
+          <div id="participation-bar" class="h-full bg-[#4caf7d]" style="width:75%"></div>
+        </div>
+        <p class="font-caveat text-xs text-[#888] mt-1">75% participation</p>
+
+        <div class="mt-4 grid grid-cols-2 gap-2 text-center">
+          <div class="border-[2px] border-dashed border-[#2d2d2d] rounded-sm py-2">
+            <div class="font-caveat text-xl font-bold text-[#4caf7d]" id="correct-count">13</div>
+            <div class="font-caveat text-xs text-[#666]">Correct</div>
+          </div>
+          <div class="border-[2px] border-dashed border-[#2d2d2d] rounded-sm py-2">
+            <div class="font-caveat text-xl font-bold text-[#e05a5a]" id="wrong-count">5</div>
+            <div class="font-caveat text-xs text-[#666]">Wrong</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="lg:col-span-2 flex flex-col gap-5">
+
+      <!-- Active Question Banner -->
+      <div id="active-banner" class="wb-card-yellow bg-[#fffbe6] border-[2.5px] border-[#f0c040] rounded-sm p-4 hidden">
+        <p class="font-caveat text-xs font-bold text-[#b8860b] uppercase tracking-wider mb-1">⏳ Active Question</p>
+        <p id="active-q-text" class="text-base text-[#1a1a1a]"></p>
+      </div>
+
+      <!-- Questions Asked -->
+      <div class="wb-card bg-[#fafaf7] border-[2.5px] border-[#2d2d2d] rounded-sm p-5">
+        <h2 class="font-caveat text-[1.3rem] font-bold text-[#1a1a1a] mb-4 border-b-2 border-dashed border-[#ccc] pb-2">📋 Questions Asked</h2>
+        <div id="questions-list" class="flex flex-col gap-2">
+          <p class="text-sm text-[#aaa] italic" id="no-questions-msg">No questions sent yet.</p>
+        </div>
+      </div>
+
+      <!-- Student Responses -->
+      <div class="wb-card bg-[#fafaf7] border-[2.5px] border-[#2d2d2d] rounded-sm p-5">
+        <h2 class="font-caveat text-[1.3rem] font-bold text-[#1a1a1a] mb-4 border-b-2 border-dashed border-[#ccc] pb-2">💬 Student Responses</h2>
+        <div id="responses-list" class="flex flex-col gap-2">
+          <div class="flex items-center justify-between border-b border-dashed border-[#ddd] pb-2">
+            <span class="text-sm text-[#1a1a1a]">Alice M.</span>
+            <span class="text-sm text-[#555]">Mitochondria is the powerhouse of the cell.</span>
+            <span class="font-caveat text-xs font-bold px-2 py-0.5 rounded-sm border-[1.5px] border-[#4caf7d] text-[#4caf7d]">✓ Correct</span>
+          </div>
+          <div class="flex items-center justify-between border-b border-dashed border-[#ddd] pb-2">
+            <span class="text-sm text-[#1a1a1a]">Bob K.</span>
+            <span class="text-sm text-[#555]">The nucleus controls the cell.</span>
+            <span class="font-caveat text-xs font-bold px-2 py-0.5 rounded-sm border-[1.5px] border-[#e05a5a] text-[#e05a5a]">✗ Wrong</span>
+          </div>
+          <div class="flex items-center justify-between border-b border-dashed border-[#ddd] pb-2">
+            <span class="text-sm text-[#1a1a1a]">Carol T.</span>
+            <span class="text-sm text-[#555]">Mitochondria produces ATP energy.</span>
+            <span class="font-caveat text-xs font-bold px-2 py-0.5 rounded-sm border-[1.5px] border-[#4caf7d] text-[#4caf7d]">✓ Correct</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const questions = [];
+
+    function sendQuestion() {
+      const text = document.getElementById('question-input').value.trim();
+      if (!text) return;
+
+      questions.push({ text });
+      document.getElementById('question-input').value = '';
+      document.getElementById('no-questions-msg')?.remove();
+
+      const list = document.getElementById('questions-list');
+      const item = document.createElement('div');
+      item.className = 'flex items-start justify-between gap-2 border-b border-dashed border-[#ddd] pb-2';
+      item.innerHTML = `
+        <p class="text-sm text-[#1a1a1a] flex-1">${text}</p>
+        <span class="font-caveat text-xs px-2 py-0.5 border-[1.5px] border-[#5b8dd9] text-[#5b8dd9] rounded-sm whitespace-nowrap">Short Answer</span>
+      `;
+      list.appendChild(item);
+
+      document.getElementById('active-banner').classList.remove('hidden');
+      document.getElementById('active-q-text').textContent = text;
+    }
+  </script>
+</body>
+</html>

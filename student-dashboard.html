@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="dashboard.css"/>
+  <link rel="icon" type="image/png" href="public/favicon.ico">
+</head>
+<body class="wb-bg min-h-screen px-4 py-6">
+
+  <!-- Top Bar -->
+  <div class="max-w-2xl mx-auto flex items-center justify-between mb-6">
+    <h1 class="font-caveat text-[1.8rem] font-bold text-[#1a1a1a]">🎒 Student Dashboard</h1>
+    <div class="flex items-center gap-4">
+      <a href="auth.html" class="font-caveat text-sm text-[#e05a5a] hover:underline">Log out</a>
+    </div>
+  </div>
+
+  <div class="max-w-2xl mx-auto flex flex-col gap-5">
+
+    <!-- Active Question -->
+    <div id="question-card" class="wb-card-yellow bg-[#fffbe6] border-[2.5px] border-[#f0c040] rounded-sm p-6">
+      <p class="font-caveat text-xs font-bold text-[#b8860b] uppercase tracking-wider mb-3">⏳ Question from Teacher</p>
+      <p class="text-lg text-[#1a1a1a] mb-5" id="question-text">
+        What is the primary function of the mitochondria in a cell?
+      </p>
+
+      <div id="answer-area">
+        <label class="font-caveat block mb-1 text-base font-semibold text-[#444]">Your Answer</label>
+        <textarea id="answer-input" rows="3" placeholder="Write your answer here..."
+          class="w-full bg-white border-2 border-dashed border-[#bbb] rounded-sm p-2 text-sm text-[#1a1a1a] outline-none resize-none"></textarea>
+        <button onclick="submitAnswer()"
+          class="wb-btn mt-3 px-6 py-2 bg-[#2d2d2d] text-[#fafaf7] text-base font-bold rounded-sm border-[2px] border-[#2d2d2d] cursor-pointer hover:-translate-y-px active:translate-y-px transition-transform">
+          Submit Answer →
+        </button>
+      </div>
+
+      <div id="result-area" class="hidden mt-2">
+        <div id="result-box" class="border-[2px] rounded-sm p-3">
+          <p id="result-label" class="font-caveat text-base font-bold"></p>
+          <p id="result-feedback" class="text-sm mt-1 text-[#444]"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Waiting -->
+    <div id="waiting-card" class="wb-card-grey hidden bg-[#fafaf7] border-[2.5px] border-dashed border-[#bbb] rounded-sm p-8 text-center">
+      <p class="text-4xl mb-3">🕐</p>
+      <p class="font-caveat text-xl font-bold text-[#888]">Waiting for next question...</p>
+      <p class="text-sm text-[#aaa] mt-1">Your teacher will send a question shortly.</p>
+    </div>
+
+    <!-- My Responses History -->
+    <div class="wb-card bg-[#fafaf7] border-[2.5px] border-[#2d2d2d] rounded-sm p-5">
+      <h2 class="font-caveat text-[1.3rem] font-bold text-[#1a1a1a] mb-4 border-b-2 border-dashed border-[#ccc] pb-2">📝 My Responses</h2>
+      <div id="history-list" class="flex flex-col gap-2">
+        <p class="text-sm text-[#aaa] italic" id="no-history-msg">No answers submitted yet.</p>
+      </div>
+    </div>
+
+    <!-- My Stats -->
+    <div class="wb-card bg-[#fafaf7] border-[2.5px] border-[#2d2d2d] rounded-sm p-5">
+      <h2 class="font-caveat text-[1.3rem] font-bold text-[#1a1a1a] mb-4 border-b-2 border-dashed border-[#ccc] pb-2">🏅 My Stats</h2>
+      <div class="grid grid-cols-3 gap-3 text-center">
+        <div class="border-[2px] border-dashed border-[#2d2d2d] rounded-sm py-3">
+          <div class="font-caveat text-2xl font-bold text-[#1a1a1a]" id="stat-answered">0</div>
+          <div class="font-caveat text-xs text-[#666] mt-0.5">Answered</div>
+        </div>
+        <div class="border-[2px] border-dashed border-[#2d2d2d] rounded-sm py-3">
+          <div class="font-caveat text-2xl font-bold text-[#4caf7d]" id="stat-correct">0</div>
+          <div class="font-caveat text-xs text-[#666] mt-0.5">Correct</div>
+        </div>
+        <div class="border-[2px] border-dashed border-[#2d2d2d] rounded-sm py-3">
+          <div class="font-caveat text-2xl font-bold text-[#5b8dd9]" id="stat-score">—</div>
+          <div class="font-caveat text-xs text-[#666] mt-0.5">Score</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let answered = 0, correct = 0;
+
+    function submitAnswer() {
+      const answer = document.getElementById('answer-input').value.trim();
+      if (!answer) return;
+
+      const isCorrect = Math.random() > 0.4;
+      const questionText = document.getElementById('question-text').textContent;
+
+      document.getElementById('answer-area').classList.add('hidden');
+      const resultArea = document.getElementById('result-area');
+      resultArea.classList.remove('hidden');
+      const resultBox = document.getElementById('result-box');
+      const resultLabel = document.getElementById('result-label');
+      const resultFeedback = document.getElementById('result-feedback');
+
+      if (isCorrect) {
+        resultBox.className = 'border-[2px] rounded-sm p-3 border-[#4caf7d] bg-[#f0fff4]';
+        resultLabel.textContent = '✓ Correct!';
+        resultLabel.style.color = '#4caf7d';
+        resultFeedback.textContent = 'Great job! Your answer was evaluated as correct by the AI.';
+        correct++;
+      } else {
+        resultBox.className = 'border-[2px] rounded-sm p-3 border-[#e05a5a] bg-[#fff5f5]';
+        resultLabel.textContent = '✗ Not quite.';
+        resultLabel.style.color = '#e05a5a';
+        resultFeedback.textContent = 'Keep trying! Review your notes and try the next question.';
+      }
+
+      answered++;
+      document.getElementById('no-history-msg')?.remove();
+      const historyList = document.getElementById('history-list');
+      const entry = document.createElement('div');
+      entry.className = 'flex items-start justify-between gap-2 border-b border-dashed border-[#ddd] pb-2';
+      entry.innerHTML = `
+        <div class="flex-1">
+          <p class="font-caveat text-xs text-[#888] mb-0.5">${questionText.substring(0,50)}...</p>
+          <p class="text-sm text-[#1a1a1a]">${answer}</p>
+        </div>
+        <span class="font-caveat text-xs font-bold px-2 py-0.5 rounded-sm border-[1.5px] whitespace-nowrap ${isCorrect ? 'border-[#4caf7d] text-[#4caf7d]' : 'border-[#e05a5a] text-[#e05a5a]'}">${isCorrect ? '✓ Correct' : '✗ Wrong'}</span>
+      `;
+      historyList.appendChild(entry);
+
+      document.getElementById('stat-answered').textContent = answered;
+      document.getElementById('stat-correct').textContent = correct;
+      document.getElementById('stat-score').textContent = Math.round((correct / answered) * 100) + '%';
+
+      setTimeout(() => {
+        document.getElementById('question-card').classList.add('hidden');
+        document.getElementById('waiting-card').classList.remove('hidden');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
