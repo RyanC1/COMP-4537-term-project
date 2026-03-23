@@ -97,7 +97,7 @@
     const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
     const API_URL = isLocal 
       ? "http://localhost:3000/api/auth" 
-      : "https://comp-4537-term-project.onrender.com/auth";
+      : "https://comp-4537-term-project.onrender.com/api";
     
     let selectedRole = null;
 
@@ -132,7 +132,7 @@
       if (!email || !password) return showError('login', 'Please enter both email and password.');
 
       try {
-        const res = await fetch(`${API_URL}/login`, {
+        const res = await fetch(`${API_URL}/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password })
@@ -168,7 +168,7 @@
       if (!selectedRole) return showError('signup', 'Please select a role!');
 
       try {
-        const res = await fetch(`${API_URL}/register`, {
+        const res = await fetch(`${API_URL}/auth/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ firstName, lastName, email, password, role: selectedRole })
