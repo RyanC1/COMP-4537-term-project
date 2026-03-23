@@ -14,13 +14,13 @@
     const user = JSON.parse(localStorage.getItem('user') || '{}');
 
     if (!token) {
-      window.location.href = 'Auth.html';
+      window.location.href = 'index.html';
     }
 
     function logout() {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = 'Auth.html';
+      window.location.href = 'index.html';
     }
   </script>
 </head>
