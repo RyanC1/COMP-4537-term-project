@@ -1,0 +1,39 @@
+<!doctype html>
+<!--
+html design stolen from bootstrap HTML
+-->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ai test</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <main class="container">
+    <h1 id="heading"></h1>
+    <p id="subheading" class="muted"></p>
+
+    <section class="panel">
+      <h2 id="queryTitle"></h2>
+      <label for="sqlQuery" id="queryLabel" class="sr-only">SQL query</label>
+      <textarea id="sqlQuery" rows="5"></textarea>
+      <div class="actions">
+        <button id="queryBtn" type="button"></button>
+      </div>
+      <p class="muted" id="queryHelp"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Server Response</h2>
+      <p id="statusLine" class="status"></p>
+      <pre id="output"></pre>
+    </section>
+  </main>
+
+  <script type="module" src="./server.js"></script>
+</body>
+
+</html>
