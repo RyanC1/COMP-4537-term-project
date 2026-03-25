@@ -1,39 +1,40 @@
 <!doctype html>
-<!--
-html design stolen from bootstrap HTML
--->
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ai test</title>
+  <title>AI Evaluate Demo</title>
   <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
   <main class="container">
-    <h1 id="heading"></h1>
-    <p id="subheading" class="muted"></p>
+    <section class="grid">
+      <article class="panel">
+        <h2>Request</h2>
+        <label for="payload">JSON Body</label>
+        <textarea id="payload" spellcheck="false">{
+  "question": "What is polymorphism?",
+  "referenceAnswer": "Polymorphism allows objects of different types to be treated through a common interface.",
+  "studentAnswer": "Polymorphism means different objects can be used through the same parent type."
+}</textarea>
 
-    <section class="panel">
-      <h2 id="queryTitle"></h2>
-      <label for="sqlQuery" id="queryLabel" class="sr-only">SQL query</label>
-      <textarea id="sqlQuery" rows="5"></textarea>
-      <div class="actions">
-        <button id="queryBtn" type="button"></button>
-      </div>
-      <p class="muted" id="queryHelp"></p>
-    </section>
+        <div class="controls">
+          <button class="primary" id="sendButton" type="button">Send Request</button>
+          <button class="secondary" id="formatButton" type="button">Format JSON</button>
+        </div>
+        <p class="hint">Simple in-browser tester for your AI evaluate functionality.</p>
+      </article>
 
-    <section class="panel">
-      <h2>Server Response</h2>
-      <p id="statusLine" class="status"></p>
-      <pre id="output"></pre>
+      <article class="panel">
+        <h2>Response</h2>
+        <pre id="output">No request sent yet.</pre>
+      </article>
     </section>
   </main>
 
-  <script type="module" src="./server.js"></script>
+  <script src="./server.js" type="module"></script>
 </body>
 
-</html>
+</html>`
