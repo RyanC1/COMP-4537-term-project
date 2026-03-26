@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Demo</title>
+    <link rel="stylesheet" href="/api/ai/demo.css" />
+</head>
+
+<body>
+    <main class="container">
+        <section class="grid">
+            <article class="panel">
+                <h2>Request</h2>
+                <label for="payload">JSON Body</label>
+                <textarea id="payload" spellcheck="false">{
+  "question": "What is polymorphism?",
+  "referenceAnswer": "Polymorphism allows objects of different types to be treated through a common interface.",
+  "studentAnswer": "Polymorphism means different objects can be used through the same parent type."
+}</textarea>
+
+                <div class="controls">
+                    <button class="primary" id="sendButton" type="button">Send Request</button>
+                    <button class="secondary" id="formatButton" type="button">Format JSON</button>
+                </div>
+            </article>
+
+            <article class="panel">
+                <h2>Response</h2>
+                <pre id="output">Empty.</pre>
+            </article>
+        </section>
+    </main>
+
+    <script src="/api/ai/demo.js"></script>
+</body>
+
+</html>
