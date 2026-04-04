@@ -1,10 +1,8 @@
-import sgMail from "@sendgrid/mail";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { writePool } from "../config/db.js";
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+import { sendPasswordResetEmail } from "../services/emailService.js";
 
 export async function register(req, res) {
   try {
@@ -88,7 +86,6 @@ export async function login(req, res) {
 }
 
 export async function forgotPassword(req, res) {
-
   try {
     const { email } = req.body;
 
@@ -115,19 +112,11 @@ export async function forgotPassword(req, res) {
     );
 
     const isLocal = process.env.NODE_ENV !== "production";
-   const resetLink = isLocal
-  ? `http://127.0.0.1:5500/frontend/reset-password.html?token=${token}`
-  : `https://your-live-frontend-url.com/reset-password.html?token=${token}`;
+    const resetLink = isLocal
+      ? `http://127.0.0.1:5500/frontend/reset-password.html?token=${token}`
+      : `https://your-live-frontend-url.com/reset-password.html?token=${token}`;
 
-    const msg = {
-      to: email,
-      from: "timmythenintendo@gmail.com",
-      subject: "Password Reset Request",
-      text: `Reset your password here: ${resetLink}`,
-      html: `<p>Click below to reset your password:</p><a href="${resetLink}">${resetLink}</a>`,
-    };
-
-    await sgMail.send(msg);
+    await sendPasswordResetEmail(email, resetLink);
 
     res.status(200).json({ message: "Reset email sent." });
   } catch (error) {
