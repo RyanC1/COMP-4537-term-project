@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import helmet from "helmet"; 
 import aiRoutes from "./routes/aiRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import roomRoutes from "./routes/roomRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 import { warmupModel } from "./services/aiService.js";
 
 dotenv.config();
@@ -28,6 +30,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/ai", aiRoutes);
+app.use("/api/rooms", roomRoutes);
+app.use("/api/admin", adminRoutes);
 
 const PORT = process.env.PORT || 3000;
 
