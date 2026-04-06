@@ -3,6 +3,7 @@ const isLocal = window.location.hostname === "localhost" || window.location.host
 const BASE_URL = isLocal 
   ? "http://localhost:3000" 
   : "https://comp-4537-term-project.onrender.com";
+  
 const API_URL = `${BASE_URL}/api/auth`;
     
 let selectedRole = null;

@@ -53,7 +53,7 @@ function setStoredString(key, value) {
 
 function redirectToAuth(message = "Your session has expired. Please log in again.") {
   alert(message);
-  window.location.href = "Auth.html";
+  window.location.href = "Index.html";
 }
 
 function getLiveQuestion(data) {

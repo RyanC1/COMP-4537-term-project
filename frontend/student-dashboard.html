@@ -14,14 +14,14 @@
     const user = JSON.parse(localStorage.getItem('user') || '{}');
 
     if (!token) {
-      window.location.href = 'Auth.html';
+      window.location.href = 'Index.html';
     }
 
     function logout() {
       sessionStorage.clear();
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = 'Auth.html';
+      window.location.href = 'Index.html';
     }
   </script>
 </head>
